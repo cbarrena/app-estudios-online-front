@@ -46,7 +46,11 @@ export default {
   },
   methods:{
     getCursosBaratos(){
-      axios.get('https://proyecto-agiles-grupo5.herokuapp.com/api/v1/curso')
+      axios.get('https://proyecto-agiles-grupo5.herokuapp.com/api/v1/curso',{
+        params: {
+            CategoriaId:1
+        }
+      })
       .then(response => {
         this.cursosbaratos = response.data.data.items
       })
