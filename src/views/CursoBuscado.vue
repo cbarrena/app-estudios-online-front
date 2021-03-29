@@ -1,7 +1,7 @@
 <template>
   <div class="cursobuscado">  
     <NavCategoria />
-    <BusquedaCurso :nombrecurso="$route.params.nombrecurso" :idcategoria="idcategoria"/>
+    <BusquedaCurso :nombrecurso="$route.params.nombrecurso" />
   </div>
 </template>
 

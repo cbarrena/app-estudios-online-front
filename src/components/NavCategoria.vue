@@ -4,7 +4,7 @@
         <b-navbar-brand>Categorías: </b-navbar-brand>
         <b-navbar-nav>
           <div v-for="categoria in categorias" :key="categoria.id">
-             <b-nav-item href="#">{{categoria.nombre}}</b-nav-item>
+             <b-nav-item @click="gotosection(categoria.id)">{{categoria.nombre}}</b-nav-item>
           </div>
         </b-navbar-nav>
       </b-navbar>
@@ -29,6 +29,20 @@ export default ({
         this.categorias = response.data.data.items
       })
       .catch(e => console.log(e))
+    },
+    gotosection:function(idCat){
+      switch(idCat){
+        case 1:
+          document.querySelector("section#cursosbaratos").scrollIntoView({behavior: 'smooth'})
+          break;
+        case 2:
+          document.querySelector("section#cursosrecomendados").scrollIntoView({behavior: 'smooth'})
+          break;
+        case 3:
+          document.querySelector("section#cursomascomprados").scrollIntoView({behavior: 'smooth'})
+          break;
+      }
+      console.log();
     }
   }
 })

@@ -28,7 +28,7 @@
                             </div>
                             <p>El costo del curso es de $ <strong>{{curso.precio}}</strong></p>
                             <div>
-                                <b-button variant="primary">Inscribirme</b-button>
+                                <b-button variant="primary" @click="goToInscripcion(curso.nombre)">Inscribirme</b-button>
                             </div>
                         </b-col>
                     </b-row>
@@ -74,6 +74,10 @@ export default ({
      this.show = false;
       //if need set active content to zero object       
      // this.active = 0;
+    },
+    goToInscripcion:function(nombreCurso){
+        let id = nombreCurso
+        this.$router.push({name:'Inscripcion',params:{nombrecurso:id}})
     }
   }
 })

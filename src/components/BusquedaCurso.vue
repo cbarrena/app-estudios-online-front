@@ -35,8 +35,7 @@ import DetalleCurso from '@/components/DetalleCurso.vue'
 
 export default {
     props: {
-    nombrecurso: String,
-    idcategoria:Number,
+    nombrecurso: String
   },
   data(){
     return{
@@ -52,8 +51,7 @@ export default {
     getCursos(){
       axios.get('https://proyecto-agiles-grupo5.herokuapp.com/api/v1/curso',{
         params: {
-            Nombre:this.nombrecurso,
-            CategoriaId:this.idcategoria
+            Nombre:this.nombrecurso
         }
       })
       .then(response => {
@@ -69,6 +67,11 @@ export default {
   },
   components:{
     DetalleCurso
+  },
+  watch:{
+      nombrecurso:function(){
+          this.getCursos();
+      }
   }
 }
 </script>

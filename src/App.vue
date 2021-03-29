@@ -42,7 +42,8 @@ export default ({
     getBuscarCurso(){
       let id = this.nombrecurso
       this.nombrecurso =''
-      this.$router.push({name:'CursoBuscado',params:{nombrecurso:id}})
+      const path ='/CursoBuscado/${nombrecurso}'
+      if (this.$router.path !== path) this.$router.push({name:'CursoBuscado',params:{nombrecurso:id}})
     }
   }
 })
