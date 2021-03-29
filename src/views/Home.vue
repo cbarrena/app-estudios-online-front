@@ -1,8 +1,7 @@
 <template>
   <div class="home">  
     <NavCategoria />
-    <CursosBaratos />
-    
+    <CursosBaratos :idcategoria="idcategoria"/>
   </div>
 </template>
 

@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import CategoriaCursos from '../views/CategoriaCursos.vue'
+import CursoBuscado from '../views/CursoBuscado.vue'
 import Home from '../views/Home.vue'
 
 
@@ -13,9 +13,9 @@ const routes = [
     component: Home
   },
   {
-    path: '/',
-    name: 'CategoriaCursos',
-    component: CategoriaCursos
+    path: '/cursobuscado/:nombrecurso',
+    name: 'CursoBuscado',
+    component: CursoBuscado
   },
   {
     path: '/about',

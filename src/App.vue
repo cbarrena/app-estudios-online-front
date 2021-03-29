@@ -2,14 +2,16 @@
   <div id="app">
     <div>
       <b-navbar toggleable="lg" type="light" variant="light">
-        <b-navbar-brand href="#">Agiles</b-navbar-brand>
+        <b-navbar-brand to="/">
+          <img src="https://i.imgur.com/6YvDqJN.jpg" width="100" height="30" />
+        </b-navbar-brand>
 
         <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
         <b-collapse id="nav-collapse" is-nav>
-          <b-nav-form>
-              <b-form-input size="sm" class="mr-sm-2" placeholder="¿Que desea aprender?"></b-form-input>
-              <b-button size="sm" class="my-2 my-sm-0" type="submit">Buscar</b-button>
+          <b-nav-form class="col-6">
+              <b-form-input id="txtbuscar" size="sm" class="mr-sm-2" style="width:330px"  placeholder="¿Que desea aprender?" v-model="nombrecurso"></b-form-input>
+              <b-button size="sm" class="my-2 my-sm-0" @click="getBuscarCurso()">Buscar</b-button>
           </b-nav-form>
           <!-- Right aligned nav items -->
           <b-navbar-nav class="ml-auto">
@@ -28,6 +30,23 @@
     <router-view/>
   </div>
 </template>
+<script>
+export default ({
+  name: 'app',
+  data(){
+    return{
+      nombrecurso:''
+    }
+  },
+  methods:  {
+    getBuscarCurso(){
+      let id = this.nombrecurso
+      this.nombrecurso =''
+      this.$router.push({name:'CursoBuscado',params:{nombrecurso:id}})
+    }
+  }
+})
+</script>
 
 <style>
 #app {
