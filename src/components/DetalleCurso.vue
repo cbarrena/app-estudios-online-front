@@ -1,5 +1,5 @@
 <template id="DetalleCurso">
-  <div  class="modal-mask" v-show="show" transition="modal" aria-hidden="true" role="dialog" aria-labelledby="modalTitle" aria-describedBy="modalDescription" style="border: 2px solid black;">
+  <div  class="modal-mask" v-show="closemodal" transition="modal" aria-hidden="true" role="dialog" aria-labelledby="modalTitle" aria-describedBy="modalDescription" style="border: 2px solid black;">
     <div class="modal-container">
         <div class="car-item" v-for="(curso, index) in cursosbaratos" v-bind:key="curso.id"  >
             <div v-if="modalActiveContent(index)">
@@ -21,18 +21,36 @@
                             <p>instructor del curso: {{curso.docente}}</p>
                         </b-col>
                         <b-col>
-                            <p> Percetene a : {{curso.categoria}}</p>
-                            <p>Tipo de Curso: {{curso.tipoAsistencia}}</p>
+                            <p><b-icon icon="award" ></b-icon> Percetene a : {{curso.categoria}}</p>
+                            <p><b-icon icon="broadcast" ></b-icon>Tipo de Curso: {{curso.tipoAsistencia}}</p>
                             <div v-if="curso.brindaCertificado">
-                                <p> Este curso brinda certificacion a un costo de: $ {{curso.costoCertificado}}</p>
+                                <p><b-icon icon="star" ></b-icon> Este curso brinda certificacion a un costo de: $ {{curso.costoCertificado}}</p>
                             </div>
-                            <p>El costo del curso es de $ <strong>{{curso.precio}}</strong></p>
+                            <p><b-icon icon="credit-card" ></b-icon>  Costo del curso es de $ <strong>{{curso.precio}}</strong></p>
                             <div>
                                 <b-button variant="primary" @click="goToInscripcion(curso.nombre)">Inscribirme</b-button>
                             </div>
                         </b-col>
                     </b-row>
-                    <b-row></b-row>
+                    <b-row>
+                        <b-col>
+                          <div class="text-center"><h5>Que Aprenderás</h5></div>
+                          <b-row v-for="(contenido, index) in cursocontenido" v-bind:key="contenido.id" style="border-top: 1px solid; border-top-color: grey;">
+                            <b-col cols="2">{{index + 1}}</b-col>
+                            <b-col class="text-left">
+                             <strong>{{contenido.nombre}}</strong>
+                             <b-row v-for="detcon in contenido.cursoContenidoDetalles" v-bind:key="detcon.id">
+                               <b-col><b-icon icon="arrow-right" variant="info" shift-h="-5"></b-icon>{{detcon.nombre}}</b-col>
+                             </b-row>
+
+
+
+                            </b-col>
+
+                          </b-row>
+                        
+                        </b-col>
+                    </b-row>
                 </b-container>
         </div>
         </div>
@@ -40,7 +58,6 @@
   </div>
 </template>
 <script>
-
 export default ({
     props: {
         active: {
@@ -52,6 +69,9 @@ export default ({
             default: 0
         },
         cursosbaratos: {
+            type:Array
+        },
+        cursocontenido:{
             type:Array,
             default:function(){
                 return{}
@@ -63,7 +83,11 @@ export default ({
             twoWay: true
         }
   },
-
+  data(){
+    return {
+      closemodal: false
+    }    
+  },
   methods: {
     // check wich content index is active
     modalActiveContent: function(i) {
@@ -71,7 +95,7 @@ export default ({
     },
     // close modal
     setModalClose: function() {
-     this.show = false;
+     this.closemodal = false;
       //if need set active content to zero object       
      // this.active = 0;
     },
@@ -109,6 +133,8 @@ export default ({
   box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
   transition: all .3s ease;
   font-family: Helvetica, Arial, sans-serif;
+  overflow-y: auto;
+  max-height: 600px;
 }
 
 .modal-header h3 {

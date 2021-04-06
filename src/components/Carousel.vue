@@ -33,7 +33,7 @@
                     <b-icon icon="book"></b-icon>
                 </div>
                 <div class="text-left">
-                    <h5> Contamos con 34 Cursos</h5>
+                    <h5> Contamos con {{sumarizado.cursos}} Cursos</h5>
                     <p> Variedad de cursos para que puedas divertirte y aprender</p>
                 </div>
                 </b-row>
@@ -44,7 +44,7 @@
                     <b-icon icon="award"></b-icon>
                 </div>
                 <div class="text-left">
-                    <h5> Cursos con certificaciones</h5>
+                    <h5> {{sumarizado.cursosCertificados}} Cursos con certificaciones</h5>
                     <p> Certificaciones por curso</p>
                 </div>
                 </b-row>
@@ -55,7 +55,7 @@
                     <b-icon icon="bookmark-star"></b-icon>
                 </div>
                 <div class="text-left">
-                    <h5> Profesores preparados</h5>
+                    <h5> {{sumarizado.docentes}} Profesores preparados</h5>
                     <p> excelente plana docente</p>
                 </div>
                 </b-row>
@@ -71,8 +71,13 @@
     data() {
       return {
         slide: 0,
-        sliding: null
+        sliding: null,
+        sumarizado:null
+
       }
+    },
+    mounted(){
+      this.getSumarizado();
     },
     methods: {
       onSlideStart(slide) {
@@ -80,7 +85,14 @@
       },
       onSlideEnd(slide) {
         this.sliding = false
-      }
+      },
+      getSumarizado(){
+        this.$axios.get('sumarizado')
+        .then(response => {
+          this.sumarizado = response.data.data
+        })
+        .catch(e => console.log(e))
+        }
     }
   }
 </script>

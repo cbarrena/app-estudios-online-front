@@ -19,18 +19,17 @@
               <b-form-rating id="rating-sm-no-border" v-model="curso.calificacion" no-border inline size="sm" readonly></b-form-rating>
             </div>
             <br/>
-            <b-button variant="primary" @click="modalOpen(index)">Ver Mas</b-button>
+            <b-button variant="primary" @click="modalOpen(index, curso.id) ">Ver Mas</b-button>
             </b-card>  
           </div>
         </div>
       </div>
     </section>
-      <DetalleCurso :show.sync="showModal" :cursosbaratos="cursosbaratos" :active.sync="active"></DetalleCurso>
+      <DetalleCurso ref="modal" :show.sync="showModal" :cursosbaratos="cursosbaratos" :active.sync="active" :cursocontenido="cursocontenido"></DetalleCurso>
   </div>
 </template>
 <script>
 
-import axios from 'axios'
 import DetalleCurso from '@/components/DetalleCurso.vue'
 
 export default {
@@ -39,6 +38,8 @@ export default {
       cursosbaratos:null,
       active: 0,
       showModal: false,
+      cursocontenido:null,
+      idcurso:''
     }
   },
   mounted(){
@@ -46,7 +47,7 @@ export default {
   },
   methods:{
     getCursosBaratos(){
-      axios.get('https://proyecto-agiles-grupo5.herokuapp.com/api/v1/curso',{
+      this.$axios.get('curso',{
         params: {
             CategoriaId:1
         }
@@ -56,11 +57,21 @@ export default {
       })
       .catch(e => console.log(e))
     },
-    modalOpen: function(i) {
-      console.log(i);
-        this.showModal = true; 
+    modalOpen: function(i, idcurso) {
+      this.$refs.modal.closemodal = true
+      this.idcurso=idcurso
+      this.getCursoContenido();
+        this.showModal = true;
         return this.active = i;
-      }
+    },
+    getCursoContenido(){
+      this.$axios.get('cursocontenido/'+this.idcurso,{})
+      .then(response => {
+        this.cursocontenido = response.data.data
+      })
+      .catch(e => console.log(e))
+      
+    }
   },
   components:{
     DetalleCurso

@@ -11,7 +11,6 @@
     </div>
 </template>
 <script>
-import axios from 'axios'
 
 export default ({
   data(){
@@ -24,7 +23,7 @@ export default ({
   },
   methods:{
     getCategorias(){
-      axios.get('https://proyecto-agiles-grupo5.herokuapp.com/api/v1/categoria')
+      this.$axios.get('categoria')
       .then(response => {
         this.categorias = response.data.data.items
       })
