@@ -15,28 +15,44 @@
           </b-nav-form>
           <!-- Right aligned nav items -->
           <b-navbar-nav class="ml-auto">
-            <b-nav-item-dropdown right>
-              <!-- Using 'button-content' slot -->
-              <template #button-content>
-                <em>Usuario</em>
-              </template>
-              <b-dropdown-item href="#">Profile</b-dropdown-item>
-              <b-dropdown-item href="#">Sign Out</b-dropdown-item>
-            </b-nav-item-dropdown>
+            <b-nav-form>
+                <template v-if="nologeado">
+                  <b-button size="sm" @click="showModal()">Log in</b-button>
+                </template>
+                <template v-else >
+                  <b-button size="sm" @click="getSignOut()">Sign Out</b-button>
+                </template>  
+              </b-nav-form>
           </b-navbar-nav>
         </b-collapse>
       </b-navbar>
     </div>
     <router-view/>
+     <Login ref="modalComponent"/>
   </div>
+  
 </template>
 <script>
+import Login from '@/components/FrmLogin.vue'
+
 export default ({
   name: 'app',
   data(){
     return{
-      nombrecurso:''
+      nombrecurso:'',
+      nologeado:true,
+      mostrarLogin:false
     }
+  },
+  mounted(){
+    if (localStorage.getItem('idusuario')===null){
+      this.nologeado=true;
+    }else{
+      this.nologeado=false;
+    }
+  },
+  components: {
+    Login
   },
   methods:  {
     getBuscarCurso(){
@@ -44,6 +60,23 @@ export default ({
       this.nombrecurso =''
       const path ='/CursoBuscado/${nombrecurso}'
       if (this.$router.path !== path) this.$router.push({name:'CursoBuscado',params:{nombrecurso:id}})
+    },
+    cambiarbotones(){
+      if (localStorage.getItem('idusuario')===null){
+        this.nologeado=true;
+      }else{
+        this.nologeado=false;
+      }
+    },
+    getSignOut(){
+      localStorage.removeItem('idusuario')
+      this.cambiarbotones();
+      const path = '/'
+      console.log(this.$router);
+      this.$router.go()
+    },
+    showModal() {
+      this.$refs.modalComponent.show();
     }
   }
 })

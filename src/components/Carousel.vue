@@ -25,44 +25,60 @@
       <!-- Slides with image only -->
       <b-carousel-slide img-src="https://i.imgur.com/ngVRCe4.jpeg"></b-carousel-slide>
     </b-carousel>
-    <div style="margin-top:10px">
+    <b-container>
+    <div>
         <b-row>
             <b-col>
-                <b-row>
-                <div class="h5 mb-2 text-right" style="width: 3em;height: 3em;justify-content: center;align-items: center;display:flex">
-                    <b-icon icon="book"></b-icon>
-                </div>
-                <div class="text-left">
-                    <h5> Contamos con {{sumarizado.cursos}} Cursos</h5>
-                    <p> Variedad de cursos para que puedas divertirte y aprender</p>
-                </div>
-                </b-row>
+              <b-row>
+                <b-col sm="2">
+                  <div class="h5 mb-2 text-right" style="width: 3em;height: 3em;justify-content: center;align-items: center;display:flex">
+                      <b-icon icon="book"></b-icon>
+                  </div>
+                </b-col>
+                <b-col>
+                  <div class="text-left">
+                      <h5> Contamos con {{sumarizado.cursos}} Cursos</h5>
+                      <p> Variedad de cursos para que puedas divertirte y aprender</p>
+                  </div>
+                </b-col>
+              </b-row>
+                  
+                  
+                  
             </b-col>
             <b-col>
-                <b-row>
-                <div class="h5 mb-2 text-right" style="width: 3em;height: 3em;justify-content: center;align-items: center;display:flex">
+              <b-row>
+                <b-col sm="2">
+                  <div class="h5 mb-2 text-right" style="width: 3em;height: 3em;justify-content: center;align-items: center;display:flex">
                     <b-icon icon="award"></b-icon>
                 </div>
-                <div class="text-left">
+                </b-col>
+                <b-col>
+                  <div class="text-left">
                     <h5> {{sumarizado.cursosCertificados}} Cursos con certificaciones</h5>
                     <p> Certificaciones por curso</p>
                 </div>
-                </b-row>
+                </b-col>
+              </b-row>
             </b-col>
             <b-col>
-                <b-row>
-                <div class="h5 mb-2 text-right" style="width: 3em;height: 3em;justify-content: center;align-items: center;display:flex">
+              <b-row>
+                <b-col sm="2">
+                  <div class="h5 mb-2 text-right" style="width: 3em;height: 3em;justify-content: center;align-items: center;display:flex">
                     <b-icon icon="bookmark-star"></b-icon>
                 </div>
-                <div class="text-left">
+                </b-col>
+                <b-col>
+                  <div class="text-left">
                     <h5> {{sumarizado.docentes}} Profesores preparados</h5>
                     <p> excelente plana docente</p>
                 </div>
-                </b-row>
-                
+                </b-col>
+              </b-row>
             </b-col>
         </b-row>
     </div>
+    </b-container>
   </div>
 </template>
 

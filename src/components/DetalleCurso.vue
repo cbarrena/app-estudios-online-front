@@ -21,14 +21,14 @@
                             <p>instructor del curso: {{curso.docente}}</p>
                         </b-col>
                         <b-col>
-                            <p><b-icon icon="award" ></b-icon> Percetene a : {{curso.categoria}}</p>
+                            <p><b-icon icon="award" ></b-icon> Pertenece a : {{curso.categoria}}</p>
                             <p><b-icon icon="broadcast" ></b-icon>Tipo de Curso: {{curso.tipoAsistencia}}</p>
                             <div v-if="curso.brindaCertificado">
                                 <p><b-icon icon="star" ></b-icon> Este curso brinda certificacion a un costo de: $ {{curso.costoCertificado}}</p>
                             </div>
                             <p><b-icon icon="credit-card" ></b-icon>  Costo del curso es de $ <strong>{{curso.precio}}</strong></p>
                             <div>
-                                <b-button variant="primary" @click="goToInscripcion(curso.nombre)">Inscribirme</b-button>
+                                <b-button variant="primary" @click="gotoPago(curso.id)">Inscribirme</b-button>
                             </div>
                         </b-col>
                     </b-row>
@@ -99,9 +99,15 @@ export default ({
       //if need set active content to zero object       
      // this.active = 0;
     },
-    goToInscripcion:function(nombreCurso){
-        let id = nombreCurso
-        this.$router.push({name:'Inscripcion',params:{nombrecurso:id}})
+    gotoPago:function(idCurso){
+        let id = idCurso
+        //this.$router.push({name:'Inscripcion',params:{nombrecurso:id}})
+        if (localStorage.getItem('idusuario') !== null){
+          this.$router.push({name:'Pago',params:{idcurso:id}})
+        }else{
+          alert("Antes de inscribirse, por favor logearse, si no tiene una cuenta puede registrarse");
+        }
+        
     }
   }
 })
