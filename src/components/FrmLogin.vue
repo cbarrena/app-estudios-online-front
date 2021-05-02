@@ -86,7 +86,7 @@
                 <b-form-input
                   id="txtContrasenia"
                   v-model="registro.contrasenia"
-                  type="text"
+                  type="password"
                   placeholder="Ingrese su Contraseña"
                   required
                 ></b-form-input>
@@ -179,16 +179,17 @@
         },
         registrarse(){
           this.$axios.post('usuario/register',{
-              nombre:this.registro.nombre,
+              nombres:this.registro.nombre,
               apellidos:this.registro.apellidos,
               correo:this.registro.correo,
-              contrasena:this.registro.contrasenia
+              contrasena:this.registro.contrasenia,
+              temas:[{"temaId":1}]
           })
           .then(response => {
             if(response.data.data != null){
-              this.$idUsuario = response.data.data.id
-              this.$correo = response.data.data.correo
-              this.$islogged = 'si'
+              localStorage.setItem('idusuario',response.data.data.id)
+              this.$parent.cambiarbotones();
+              alert("Gracias por registrarse");
               this.$refs.modal1log.hide()
             }else{
               alert("Hubo un error en el registro. Por favor, vuelva a intentar")
