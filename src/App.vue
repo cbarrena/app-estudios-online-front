@@ -72,11 +72,16 @@ export default ({
       localStorage.removeItem('idusuario')
       this.cambiarbotones();
       const path = '/'
-      console.log(this.$router);
       this.$router.go()
     },
     showModal() {
       this.$refs.modalComponent.show();
+    },
+    mostrarCursoPorUsuario(){
+      var home = this.$children[1]
+      var comp = home.$children[2]
+      console.log(home.$children[2]);
+      comp.getMostrarComponente();
     }
   }
 })

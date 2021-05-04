@@ -1,8 +1,8 @@
 <template>
-  <div class="cursosrecomendados">
-    <section id="cursosrecomendados" class="pb-5">
+  <div class="cursosporusuario" v-show="mostrarComponente">
+    <section id="cursosporusuario" class="pb-5">
       <div class="container">
-        <h3 class="text-left"><strong>Cursos Sugeridos</strong></h3><hr>
+        <h3 class="text-left"><strong>Cursos Recomendados</strong></h3><hr>
         <div class="row" >
           <div class="col-xs-12 col-sm-6 col-md-4" v-for="(curso, index) in cursosbaratos" :key="curso.id">
             <b-card
@@ -19,7 +19,7 @@
               <b-form-rating id="rating-sm-no-border" v-model="curso.calificacion" no-border inline size="sm" readonly></b-form-rating>
             </div>
             <br/>
-            <b-button variant="primary" @click="modalOpen(index, curso.id)">Ver Mas</b-button>
+            <b-button variant="primary" @click="modalOpen(index, curso.id) ">Ver Mas</b-button>
             </b-card>  
           </div>
         </div>
@@ -39,7 +39,8 @@ export default {
       active: 0,
       showModal: false,
       cursocontenido:null,
-      idcurso:''
+      idcurso:'',
+      mostrarComponente:false
     }
   },
   mounted(){
@@ -47,22 +48,25 @@ export default {
   },
   methods:{
     getCursosBaratos(){
-      this.$axios.get('curso',{
-        params: {
-            CategoriaId:2
-        }
-      })
-      .then(response => {
-        this.cursosbaratos = response.data.data.items
-      })
-      .catch(e => console.log(e))
+      if (localStorage.getItem('idusuario') != null){
+        this.$axios.get('curso/usuario',{
+          params: {
+              usuarioId: localStorage.getItem('idusuario'),
+              recomendado:true
+          }
+        })
+        .then(response => {
+          this.cursosbaratos = response.data.data
+        })
+        .catch(e => console.log(e))
+      }
     },
     modalOpen: function(i, idcurso) {
       this.$refs.modal.closemodal = true
       this.idcurso=idcurso
       this.getCursoContenido();
-      this.showModal = true; 
-      return this.active = i;
+        this.showModal = true;
+        return this.active = i;
     },
     getCursoContenido(){
       this.$axios.get('cursocontenido/'+this.idcurso,{})
@@ -71,6 +75,11 @@ export default {
       })
       .catch(e => console.log(e))
       
+    },
+    getMostrarComponente(){
+      if (localStorage.getItem('idusuario') !== null){
+        this.mostrarComponente=true
+      }
     }
   },
   components:{

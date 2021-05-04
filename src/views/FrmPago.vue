@@ -3,7 +3,7 @@
         <b-container >
             <div class="centrar">
             <div>
-                <h3>Pagar con Tarjeta Credito/Debito</h3>
+                <h3>Pagar con Tarjeta Crédito/Débito</h3>
                 <b-img src="../assets/img/visa.png" width="30%"/>
                 <b-img src="../assets/img/mastercard.png" width="30%"/>
                 <b-img src="../assets/img/dcp.png" width="30%"/>
@@ -176,13 +176,15 @@ export default {
                 this.$axios.post('usuario/mail',{
                     usuarioId:parseInt(localStorage.getItem('idusuario')),
                     cursoId:curso,
-                    mailFrom:"",
-                    passwordFrom:""
+                    mailFrom:"u201721674@upc.edu.pe",
+                    passwordFrom:"3ru3iM5tr0$7"
                 })
                 .then(response => {
                     let pagook = response.data.data
                     if (pagook){
                         alert('gracias por inscribirse, los datos de su clase fueron enviados por correo')
+                    } else {
+                        alert('Hubo un error en el proceso de pago, intentelo nuevamente')
                     }
                     
                     this.$router.push({name:'Home'})

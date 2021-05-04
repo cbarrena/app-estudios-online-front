@@ -106,6 +106,8 @@ export default ({
           this.$router.push({name:'Pago',params:{idcurso:id}})
         }else{
           alert("Antes de inscribirse, por favor logearse, si no tiene una cuenta puede registrarse");
+          this.setModalClose();
+          this.$parent.$parent.goToLogin()
         }
         
     }

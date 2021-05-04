@@ -94,6 +94,17 @@
             </b-col>
           </b-row>
           <b-row>
+            <b-col>
+              <p>temas de preferencia</p>
+            <b-form-group class="text-left">
+              <div v-for="tema in temas" v-bind:key="tema.id"  >
+                <input type="checkbox" :id="tema.descripcion" :value="tema.id" v-model="opciones" />
+              <label :for="tema.descripcion">{{tema.descripcion}}</label>
+              </div>
+            </b-form-group>
+            </b-col>
+          </b-row>
+          <b-row>
               <b-col>
                 <b-button fluid @click="registrarse">Registrarse</b-button>
               </b-col>
@@ -145,11 +156,16 @@
           nombre: '',
           apellidos:'',
           correo:'',
-          contrasenia: ''
+          contrasenia: '',
+          temas:[]
         },
         vLogin:true,
-        vRegistrar:false
+        vRegistrar:false,
+        opciones:[]
       }
+      },
+      mounted(){
+        this.getTemas();
       },
       methods: {
         show() {
@@ -168,6 +184,7 @@
               localStorage.setItem('idusuario',response.data.data.id)
               this.$parent.cambiarbotones();
               this.$refs.modal1log.hide()
+              this.$parent.mostrarCursoPorUsuario();
               
             }else{
               alert("Datos de ingreso incorrectos, vuelva a intentar")
@@ -178,18 +195,23 @@
           .catch(e => console.log(e))
         },
         registrarse(){
+          for(var n in this.opciones){
+            this.registro.temas.push({temaId:this.opciones[n]})
+          }
+          
           this.$axios.post('usuario/register',{
               nombres:this.registro.nombre,
               apellidos:this.registro.apellidos,
               correo:this.registro.correo,
               contrasena:this.registro.contrasenia,
-              temas:[{"temaId":1}]
+              temas:this.registro.temas
           })
           .then(response => {
             if(response.data.data != null){
               localStorage.setItem('idusuario',response.data.data.id)
               this.$parent.cambiarbotones();
               alert("Gracias por registrarse");
+              this.$parent.mostrarCursoPorUsuario();
               this.$refs.modal1log.hide()
             }else{
               alert("Hubo un error en el registro. Por favor, vuelva a intentar")
@@ -199,6 +221,16 @@
           })
           .catch(e => console.log(e))
 
+        },
+        getTemas(){
+          this.$axios.get('tema',{})
+          .then(response =>{
+            if(response.data.data != null){
+              this.temas = response.data.data
+              
+            }
+          })
+          .catch(e=> console.log(e))
         }
       }
     }
