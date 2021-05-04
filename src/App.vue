@@ -80,7 +80,6 @@ export default ({
     mostrarCursoPorUsuario(){
       var home = this.$children[1]
       var comp = home.$children[2]
-      console.log(home.$children[2]);
       comp.getMostrarComponente();
       comp.getCursosBaratos();
     }
