@@ -82,6 +82,7 @@ export default ({
       var comp = home.$children[2]
       console.log(home.$children[2]);
       comp.getMostrarComponente();
+      comp.getCursosBaratos();
     }
   }
 })
