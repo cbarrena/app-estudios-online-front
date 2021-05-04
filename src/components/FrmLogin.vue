@@ -208,10 +208,11 @@
           })
           .then(response => {
             if(response.data.data != null){
-              localStorage.setItem('idusuario',response.data.data.id)
+              localStorage.setItem('idusuario',response.data.data)
               this.$parent.cambiarbotones();
-              alert("Gracias por registrarse");
               this.$parent.mostrarCursoPorUsuario();
+              alert("Gracias por registrarse");
+              
               this.$refs.modal1log.hide()
             }else{
               alert("Hubo un error en el registro. Por favor, vuelva a intentar")
