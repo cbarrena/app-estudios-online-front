@@ -49,6 +49,7 @@ export default {
   methods:{
     getCursosBaratos(){
       if (localStorage.getItem('idusuario') != null){
+        this.mostrarComponente=true
         this.$axios.get('curso/usuario',{
           params: {
               usuarioId: localStorage.getItem('idusuario'),
