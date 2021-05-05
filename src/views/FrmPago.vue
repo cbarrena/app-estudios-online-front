@@ -176,8 +176,8 @@ export default {
                 this.$axios.post('usuario/mail',{
                     usuarioId:parseInt(localStorage.getItem('idusuario')),
                     cursoId:curso,
-                    mailFrom:"u201721674@upc.edu.pe",
-                    passwordFrom:"3ru3iM5tr0$8"
+                    mailFrom:"",
+                    passwordFrom:""
                 })
                 .then(response => {
                     let pagook = response.data.data
